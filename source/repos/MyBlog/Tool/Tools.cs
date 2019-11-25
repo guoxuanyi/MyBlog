@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Tool
 {
-    public class Tools
+    public static class Tools
     {
-        public bool IsNull<T>(T obj) where T : class
+        public static bool IsNull<T>(T obj) where T : class
         {
-            if (obj != null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return obj == null;
         }
-
     }
 }

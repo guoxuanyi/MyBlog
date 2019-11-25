@@ -7,76 +7,69 @@ using System.Collections.Generic;
 namespace MyBlog.Controllers
 {
     [ApiController]
-    public class UserController
+    public class UserController : DataFactory<IUserService>
     {
-        private readonly IUserService _service;
-
-        public UserController()
-        {
-            this._service = new UserService();
-        }
-
         [HttpPost]
         [Route("api/User/getAllUsers")]
         public List<Users> GetAllUsers()
         {
-            return this._service.GetAllUsers();
+            return Service.GetAllUsers();
         }
 
         [HttpPost]
         [Route("api/User/getAllUsersNotFreeze")]
         public List<Users> GetAllUsersNotFreeze()
         {
-            return this._service.GetAllUsersNotFreeze();
+            return Service.GetAllUsersNotFreeze();
         }
 
         [HttpPost]
         [Route("api/User/getUserByUserId")]
         public Users GetUserByUserId(string userId)
         {
-            return this._service.GetUserByUserId(userId);
+            return Service.GetUserByUserId(userId);
         }
 
         [HttpPost]
         [Route("api/User/getUserByUserNameAndPassword")]
         public Users GetUserByUserNameAndPassword(string userName, string passWord)
         {
-            return this._service.GetUserByUserNameAndPassword(userName, passWord);
+            return Service.GetUserByUserNameAndPassword(userName, passWord);
         }
 
         [HttpPost]
         [Route("api/User/login")]
         public bool Login(string userName, string passWord)
         {
-            return this._service.Login(userName, passWord);
+            return Service.Login(userName, passWord);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/User/register")]
         public bool Register(Users user)
         {
-            return this._service.Register(user);
+            return Service.Register(user);
         }
 
         [HttpGet]
         [Route("api/User/freezeUser")]
         public int FreezeUser(string userId)
         {
-            return this._service.FreezeUser(userId);
+            return Service.FreezeUser(userId);
         }
 
         [HttpGet]
         [Route("api/User/unFreezeUser")]
         public int UnFreezeUser(string userId)
         {
-            return this._service.UnFreezeUser(userId);
+            return Service.UnFreezeUser(userId);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/User/updateUser")]
         public int UpdateUser(Users user)
         {
-            return this._service.UpdateUser(user);
+            return Service.UpdateUser(user);
         }
     }
 }
