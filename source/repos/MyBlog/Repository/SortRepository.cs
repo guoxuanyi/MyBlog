@@ -1,5 +1,4 @@
 ﻿using MyBlog.Models;
-using MyBlog.Repository.Base;
 using MyBlog.Repository.IRepository;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Repository
 {
-    public class SortRepository : DataFactory<gxyContext>, ISortRepository
+    public class SortRepository : DataFactory, ISortRepository
     {
         public bool AddSort(Sort sort)
         {
@@ -46,7 +45,9 @@ namespace MyBlog.Repository
 
         public int UpdateSort(Sort sort)
         {
-            Db.Sort.Update(sort);
+            Sort sortModify = Db.Sort.FirstOrDefault(s => s.SortId == sort.SortId);
+            sortModify.SortName = sort.SortName;
+            sortModify.SortDescription = sort.SortDescription;
             return Db.SaveChanges();
         }
     }

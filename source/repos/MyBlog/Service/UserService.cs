@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MyBlog.Service
 {
-    public class UserService : DataFactory<IUserRepository>, IUserService
+    public class UserService : DataFactory, IUserService
     {
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace MyBlog.Service
         /// <returns>用户列表</returns>
         public List<Users> GetAllUsers()
         {
-            return Repository.GetAllUsers();
+            return GetRepository<IUserRepository>().GetAllUsers();
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace MyBlog.Service
         /// <returns></returns>
         public List<Users> GetAllUsersNotFreeze()
         {
-            return Repository.GetAllUsersNotDelete();
+            return GetRepository<IUserRepository>().GetAllUsersNotDelete();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace MyBlog.Service
         /// <returns>用户</returns>
         public Users GetUserByUserId(string userId)
         {
-            return Repository.GetUserByUserId(userId);
+            return GetRepository<IUserRepository>().GetUserByUserId(userId);
         }
 
         /// <summary>
@@ -47,12 +47,12 @@ namespace MyBlog.Service
         /// <returns>是否存在</returns>
         public bool IsUserNameExist(string userName)
         {
-            return Repository.IsUserNameExist(userName);
+            return GetRepository<IUserRepository>().IsUserNameExist(userName);
         }
 
         public Users GetUserByUserNameAndPassword(string userName, string passWord)
         {
-            return Repository.GetUserByUserNameAndPassword(userName, passWord);
+            return GetRepository<IUserRepository>().GetUserByUserNameAndPassword(userName, passWord);
         }
 
         public int GetUserStatus(Users user)
@@ -120,7 +120,7 @@ namespace MyBlog.Service
             bool isUserNameExist = IsUserNameExist(user.UserName);
             if (!isUserNameExist)
             {
-                return Repository.Register(user);
+                return GetRepository<IUserRepository>().Register(user);
             }
             else
             {
@@ -135,7 +135,7 @@ namespace MyBlog.Service
         /// <returns>返回受影响的用户数量</returns>
         public int FreezeUser(string userId)
         {
-            return Repository.FreezeUser(userId);
+            return GetRepository<IUserRepository>().FreezeUser(userId);
         }
 
         public int UpdateUser(Users modifyUser)
@@ -147,7 +147,7 @@ namespace MyBlog.Service
                 bool status = IsUserNameExist(modifyUser.UserName);
                 if (!status)
                 {
-                    return Repository.UpdateUser(user, modifyUser);
+                    return GetRepository<IUserRepository>().UpdateUser(user, modifyUser);
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace MyBlog.Service
         /// <returns>返回受影响的用户数量</returns>
         public int UnFreezeUser(string userId)
         {
-            return Repository.UnFreezeUser(userId);
+            return GetRepository<IUserRepository>().UnFreezeUser(userId);
         }
     }
 }

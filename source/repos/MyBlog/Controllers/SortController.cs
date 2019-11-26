@@ -10,41 +10,41 @@ using System.Threading.Tasks;
 namespace MyBlog.Controllers
 {
     [ApiController]
-    public class SortController : DataFactory<ISortService>
+    public class SortController : DataFactory
     {
         [HttpPost]
         [Route("api/Sort/getAllSorts")]
         public List<Sort> GetAllSorts()
         {
-            return Service.GetAllSorts();
+            return GetService<ISortService>().GetAllSorts();
         }
 
         [HttpGet]
         [Route("api/Sort/getSortById")]
         public Sort GetSortById(string sortId)
         {
-            return Service.GetSortBySortId(sortId);
+            return GetService<ISortService>().GetSortBySortId(sortId);
         }
 
         [HttpPost]
         [Route("api/Sort/addSort")]
         public bool AddSort(Sort sort)
         {
-            return Service.AddSort(sort);
+            return GetService<ISortService>().AddSort(sort);
         }
 
         [HttpDelete]
         [Route("api/Sort/deleteSort")]
         public int DeleteSort(string sortId)
         {
-            return Service.DeleteSort(sortId);
+            return GetService<ISortService>().DeleteSort(sortId);
         }
 
         [HttpPut]
         [Route("api/Sort/updateSort")]
         public int UpdateSort(Sort sort)
         {
-            return Service.UpdateSort(sort);
+            return GetService<ISortService>().UpdateSort(sort);
         }
     }
 }

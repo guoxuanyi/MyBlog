@@ -11,75 +11,67 @@ using System.Threading.Tasks;
 
 namespace MyBlog
 {
-    public class DataFactory<T>
+    public class DataFactory
     {
-        static IUserService userService = null;
-        static ISortService sortService = null;
-        static IUserRepository userRepository = null;
-        static ISortRepository sortRepository = null;
         private static gxyContext db = new gxyContext();
 
-        public dynamic Service
-        {
-            get
-            {
-                if (typeof(T) == typeof(ISortService))
-                {
-                    if (sortService == null)
-                    {
-                        object instance = new SortService();
-                        return (T)instance;
-                    }
-                    return sortService;
-                }
-                else if (typeof(T) == typeof(IUserService))
-                {
-                    if (userService == null)
-                    {
-                        return new UserService();
-                    }
-                    return userService;
-                }
-                else
-                {
-                    throw new Exception();
-                }
-            }
-        }
-
-        public dynamic Repository
-        {
-            get
-            {
-                if (typeof(T) == typeof(IUserRepository))
-                {
-                    if (userRepository == null)
-                    {
-                        return new UserRepository();
-                    }
-                    return userRepository;
-                }
-                else if (typeof(T) == typeof(ISortRepository))
-                {
-                    if (sortRepository == null)
-                    {
-                        return new SortRepository();
-                    }
-                    return sortRepository;
-                }
-                else
-                {
-                    throw new Exception();
-                }
-            }
-        }
         public static gxyContext Db
         {
             get
             {
                 return db;
             }
+        }
 
+        public T GetRepository<T>()
+        {
+            if (typeof(T) == typeof(IUserRepository))
+            {
+                object instance = new UserRepository();
+                return (T)instance;
+            }
+            else if (typeof(T) == typeof(ISortRepository))
+            {
+                object instance = new SortRepository();
+                return (T)instance;
+            }
+            else if (typeof(T) == typeof(IBlogRepository))
+            {
+                object instance = new BlogRepository();
+                return (T)instance;
+            }
+            else if (typeof(T) == typeof(IUserBlogRelationRepository))
+            {
+                object instance = new UserBlogRelationRepository();
+                return (T)instance;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
+        public T GetService<T>()
+        {
+            if (typeof(T) == typeof(ISortService))
+            {
+                object instance = new SortService();
+                return (T)instance;
+            }
+            else if (typeof(T) == typeof(IUserService))
+            {
+                object instance = new UserService();
+                return (T)instance;
+            }
+            else if (typeof(T) == typeof(IBlogService))
+            {
+                object instance = new BlogService();
+                return (T)instance;
+            }
+            else
+            {
+                return default(T);
+            }
         }
     }
 }

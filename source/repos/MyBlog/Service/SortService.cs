@@ -9,32 +9,32 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Service
 {
-    public class SortService : DataFactory<ISortRepository>, ISortService
+    public class SortService : DataFactory, ISortService
     {
 
         public bool AddSort(Sort sort)
         {
-            return Repository.AddSort(sort);
+            return GetRepository<ISortRepository>().AddSort(sort);
         }
 
         public int DeleteSort(string sortId)
         {
-            return Repository.DeleteSort(sortId);
+            return GetRepository<ISortRepository>().DeleteSort(sortId);
         }
 
         public List<Sort> GetAllSorts()
         {
-            return Repository.GetAllSorts();
+            return GetRepository<ISortRepository>().GetAllSorts();
         }
 
         public Sort GetSortBySortId(string sortId)
         {
-            return Repository.GetSortBySortId(sortId);
+            return GetRepository<ISortRepository>().GetSortBySortId(sortId);
         }
 
         public int UpdateSort(Sort sort)
         {
-            return Repository.UpdateSort(sort);
+            return GetRepository<ISortRepository>().UpdateSort(sort);
         }
     }
 }
